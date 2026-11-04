@@ -1,0 +1,25 @@
+# Spark + Delta Lake
+# delta-spark 4.4.1 requires pyspark >=4.0.1,<=4.2.0, so pyspark stays at 4.2.0 (not 4.3.x).
+# Spark 4.x needs Java 17 or 21.
+pyspark==4.2.0
+delta-spark==4.4.1
+
+# Data handling
+numpy==2.5.4
+pandas==3.1.0
+pyarrow==26.0.1
+
+# Reporting / dashboard
+duckdb==2.0.0
+streamlit==1.66.1
+
+# Config, ingestion, secrets
+pyyaml==6.0.3
+requests==2.34.2
+python-dotenv==1.2.4
+
+# Dev
+pytest==9.2.0
+ipykernel==7.4.0
+
+# Apache Airflow is intentionally NOT here: it runs in Docker (orchestration/airflow/).
