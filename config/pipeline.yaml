@@ -1,1 +1,12 @@
 paths:
+  lake_root : data
+  landing: landing
+  bronze: bronze
+  silver: silver
+  gold: gold
+  smoke_test: _smoke
+
+source:
+  name: nyc_tlc_yellow
+  url_template: "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_{year}-{month:02d}.parquet"
+  
