@@ -151,4 +151,4 @@ _Dashboard screenshots and key findings will go here._
 
 ## Author
 
-Gautam — [LinkedIn](#) · [GitHub](#)
+Mayuresh Pagare — [LinkedIn](https://linkedin.com/in/mayuresh-pagare) · [GitHub](https://github.com/mayureshpagare)
