@@ -6,3 +6,5 @@ __pycache__/
 spark-warehouse/
 metastore_db/
 .ipynb_checkpoints/
+*.txt
+*.py
