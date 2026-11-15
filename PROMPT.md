@@ -74,8 +74,8 @@ At the end of each stage, ask me 3–5 interview-style questions about what we b
 > Update this section at the start of each session.
 
 - **Stage:** 1 — Local build
-- **Done:** _nothing yet_
-- **Working on today:** _e.g. environment setup and first Delta write_
+- **Done:** environment setup, config (`config/pipeline.yaml`), Delta smoke test (`src/smoke_test.py`)
+- **Working on today:** ingest
 - **Blocked on / questions:** _none_
 
 ## Session start prompt
