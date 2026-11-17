@@ -74,8 +74,8 @@ At the end of each stage, ask me 3–5 interview-style questions about what we b
 > Update this section at the start of each session.
 
 - **Stage:** 1 — Local build
-- **Done:** environment setup, config (`config/pipeline.yaml`), Delta smoke test (`src/smoke_test.py`)
-- **Working on today:** ingest
+- **Done:** environment setup, config (`config/pipeline.yaml`), Delta smoke test (`src/smoke_test.py`),ingest (`Jan 2024 = 2,964,624 rows`)
+- **Working on today:** Bronze
 - **Blocked on / questions:** _none_
 
 ## Session start prompt
