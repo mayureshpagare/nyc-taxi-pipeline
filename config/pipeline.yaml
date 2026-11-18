@@ -12,3 +12,6 @@ source:
   url_template: "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_{year}-{month:02d}.parquet"
   first_year: 2009
   timeout_seconds: 60
+
+tables:
+  bronze: yellow_trips
