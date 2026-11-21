@@ -27,8 +27,8 @@ flowchart LR
 
 | Layer | Purpose | Key rules |
 |---|---|---|
-| **Landing** | Raw files exactly as downloaded | Partitioned by `yellow/yyyy/mm/` |
-| **Bronze** | Replayable raw history in Delta | Append-only; adds `_ingested_at`, `_source_file` |
+| **Landing** | Raw files exactly as downloaded | Stored as `yellow/yyyy/mm/`; written atomically, skipped if already present |
+| **Bronze** | Replayable raw history in Delta | No business logic; adds `_ingested_at`, `_source_file`; one partition per source month (`_source_year`, `_source_month`), replaced on re-run with `replaceWhere` |
 | **Silver** | Trustworthy, analysis-ready trips | Type casting, invalid-row filtering, dedupe, zone lookup join, `trip_duration_min` |
 | **Gold** | Answers to business questions | Daily trips and revenue by borough, demand by hour, fare per mile, top routes |
 
@@ -58,8 +58,11 @@ What changed between environments, and why, is documented in [`docs/environment-
 ├── config/
 │   └── pipeline.yaml             # Paths, months to process, source URLs
 ├── src/
+│   ├── common.py                 # Project root, config loading, layer paths
+│   ├── spark_session.py          # Local SparkSession with Delta enabled
+│   ├── smoke_test.py             # Checks Spark + Delta can write and read
 │   ├── ingest/                   # Download raw files to landing
-│   ├── bronze/
+│   ├── bronze/                   # Landing → Bronze Delta table (+ metadata columns)
 │   ├── silver/
 │   ├── gold/
 │   └── quality/                  # Row-count reconciliation + assertions
@@ -116,6 +119,13 @@ docker compose up -d
 
 ## Data quality
 
+Row counts reconciled between layers (each run fails if they differ):
+
+| Month | Landing | Bronze | Silver | Gold |
+|---|---|---|---|---|
+| 2024-01 | 2,964,624 | 2,964,624 | _TBD_ | _TBD_ |
+| 2024-02 | 3,007,526 | 3,007,526 | _TBD_ | _TBD_ |
+
 Silver-layer rules and how many rows each removed (filled in after running):
 
 | Rule | Rows dropped | % of month |
@@ -139,6 +149,14 @@ _Dashboard screenshots and key findings will go here._
 ## Progress
 
 - [ ] **Stage 1 — Local build:** ingestion, medallion layers, Airflow DAG, dashboard
+  - [x] Environment + Delta smoke test
+  - [x] Ingest to landing
+  - [x] Bronze
+  - [ ] Silver
+  - [ ] Gold
+  - [ ] Data-quality checks
+  - [ ] Airflow DAG
+  - [ ] Dashboard
 - [ ] **Stage 2 — Databricks Free Edition:** Unity Catalog tables, Databricks Job, quality checks
 - [ ] **Stage 3 — Cloud sprint:** cloud ingestion, Spark layers, evidence captured, resources torn down
 - [ ] Environment comparison written up
