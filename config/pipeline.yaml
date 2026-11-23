@@ -15,3 +15,5 @@ source:
 
 tables:
   bronze: yellow_trips
+  silver: yellow_trips
+  silver_rule_counts: _rule_counts
