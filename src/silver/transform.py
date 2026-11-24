@@ -70,3 +70,14 @@ def standardise(bronze: DataFrame) -> DataFrame:
     for name in INT_COLUMNS:
         df = df.withColumn(name, F.col(name).cast("int"))
     return df
+
+def flag_invalid_rows(df: DataFrame) -> DataFrame:
+    first_match = F.coalesce(*[F.when(condition, F.lit(name)) for name,condition in rules()])
+    return df.withColumn(DROP_REASON,first_match)
+
+def remove_duplicates(df: DataFrame) -> DataFrame:
+    return df.dropDuplicates(TRIP_COLUMNS)
+
+def add_trip_durations(df: DataFrame) -> DataFrame:
+    seconds = F.timestamp_diff("SECOND",F.col("pickup_at"), F.col("dropoff_at"))
+    return df.withColumn("trip_duration_min",F.round(seconds / 60.0, 2))
