@@ -8,3 +8,4 @@ metastore_db/
 .ipynb_checkpoints/
 test.py
 test.ipynb
+.vscode/
